@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -22,8 +21,12 @@ const routes: Routes = [
   },
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
 
-  // { path: 'not-found', component: NotFoundComponent },
-  // { path: '**', redirectTo: '/not-found' },
+  {
+    path: 'not-found',
+    loadChildren: () =>
+      import('./not-found/not-found.module').then((m) => m.NotFoundModule),
+  },
+  { path: '**', redirectTo: '/not-found' },
 ];
 
 @NgModule({

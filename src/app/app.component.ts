@@ -14,6 +14,9 @@ export class AppComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.authService.autoLogin();
+    if (localStorage.getItem('userData')) {
+      this.dataStorageService.fetchRecipe().subscribe();
+    }
   }
   title = 'Recipe Book';
   loadedFeature = 'recipe';

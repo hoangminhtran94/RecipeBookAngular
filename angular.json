@@ -99,5 +99,8 @@
       }
     }
   },
-  "defaultProject": "mainproject"
+  "defaultProject": "mainproject",
+  "cli": {
+    "analytics": false
+  }
 }

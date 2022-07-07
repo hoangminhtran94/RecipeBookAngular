@@ -95,8 +95,7 @@ export class AuthService {
           'We have blocked all requests from this device due to unusual activity. Try again later';
         break;
       case 'EMAIL_NOT_FOUND':
-        errorMessage =
-          'There is no user record corresponding to this identifier. The user may have been deleted';
+        errorMessage = 'Invalid email';
         break;
       case 'INVALID_PASSWORD':
         errorMessage =

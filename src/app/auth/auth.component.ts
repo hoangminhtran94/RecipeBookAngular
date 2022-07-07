@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService, AuthResponseData } from './auth.service';
 import { Observer, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
   selector: 'app-auth',
@@ -18,7 +19,11 @@ export class AuthComponent implements OnInit {
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private dataStorageService: DataStorageService
+  ) {}
 
   ngOnInit(): void {
     this.authForm = new FormGroup({
@@ -40,9 +45,6 @@ export class AuthComponent implements OnInit {
 
     if (this.isLoginMode) {
       authObs = this.authService.login(email, password);
-      this.authService.user.subscribe((data) => {
-        console.log(data);
-      });
     } else {
       authObs = this.authService.signUp(email, password);
     }
@@ -53,6 +55,10 @@ export class AuthComponent implements OnInit {
         this.isLoading = false;
         this.error = null;
         this.router.navigate(['../recipes']);
+        setTimeout(
+          () => this.dataStorageService.fetchRecipe().subscribe(),
+          2000
+        );
       },
       error: (errorRes) => {
         console.log(errorRes);

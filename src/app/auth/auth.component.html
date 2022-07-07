@@ -9,11 +9,23 @@
         <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert>
         <form [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
              <div class="form-group">
-                 <label for="email"></label>
+                 <label for="email" style="font-size:small">Email</label>
                  <input type="email" id="email" class="form-control" formControlName="email"/>
              </div>
-             <div class="form-group">
-                 <label for="password"></label>
+             <div class="form-group" *ngIf="!isLoginMode">
+                <label for="name" style="font-size:small">Name</label>
+                <input type="name" id="name" class="form-control"/>
+            </div>
+            <div class="form-group" *ngIf="!isLoginMode">
+                <label for="address" style="font-size:small">Address</label>
+                <input type="address" id="address" class="form-control" />
+            </div>
+            <div class="form-group" *ngIf="!isLoginMode">
+                <label for="font" style="font-size:small">Font number</label>
+                <input type="font" id="address" class="form-control" />
+            </div>
+             <div class="form-group" >
+                 <label for="password" style="font-size:small">Password</label>
                  <input type="password" id="password" class="form-control" formControlName="password"/>
              </div>
              <div>
