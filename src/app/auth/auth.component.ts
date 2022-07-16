@@ -1,34 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService, AuthResponseData } from './auth.service';
-import { Observer, Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { DataStorageService } from '../shared/data-storage.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { Subscription } from 'rxjs';
+import * as fromApp from '../store/app.reducer';
+import { Store } from '@ngrx/store';
+import * as AuthActions from './store/auth.action';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
 
-  authForm: FormGroup;
+  authForm: UntypedFormGroup;
+  storeSub: Subscription;
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private dataStorageService: DataStorageService
-  ) {}
+  constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {
-    this.authForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [
+    this.storeSub = this.store.select('auth').subscribe((authState) => {
+      this.isLoading = authState.loading;
+      this.error = authState.authError;
+    });
+    this.authForm = new UntypedFormGroup({
+      email: new UntypedFormControl(null, [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: new UntypedFormControl(null, [
         Validators.required,
         Validators.minLength(6),
       ]),
@@ -40,37 +48,44 @@ export class AuthComponent implements OnInit {
     }
     const email = this.authForm.get('email').value;
     const password = this.authForm.get('password').value;
-    let authObs: Observable<AuthResponseData>;
-    this.isLoading = true;
+    // let authObs: Observable<AuthResponseData>;
+    // this.isLoading = true;
 
     if (this.isLoginMode) {
-      authObs = this.authService.login(email, password);
+      // authObs = this.authService.login(email, password);
+      this.store.dispatch(
+        new AuthActions.LoginStart({ email: email, password: password })
+      );
     } else {
-      authObs = this.authService.signUp(email, password);
+      this.store.dispatch(
+        new AuthActions.SignupStart({ email: email, password: password })
+      );
     }
-
-    authObs.subscribe({
-      next: (response) => {
-        console.log(response);
-        this.isLoading = false;
-        this.error = null;
-        this.router.navigate(['../recipes']);
-        setTimeout(
-          () => this.dataStorageService.fetchRecipe().subscribe(),
-          2000
-        );
-      },
-      error: (errorRes) => {
-        console.log(errorRes);
-        this.error = errorRes;
-        this.isLoading = false;
-      },
-    });
+    // authObs.subscribe({
+    //   next: (response) => {
+    //     console.log(response);
+    //     this.isLoading = false;
+    //     this.error = null;
+    //     this.router.navigate(['../recipes']);
+    //     setTimeout(
+    //       () => this.dataStorageService.fetchRecipe().subscribe(),
+    //       2000
+    //     );
+    //   },
+    //   error: (errorRes) => {
+    //     console.log(errorRes);
+    //     this.error = errorRes;
+    //     this.isLoading = false;
+    //   },
+    // });
 
     this.authForm.reset();
   }
 
   onHandleError() {
-    this.error = null;
+    this.store.dispatch(new AuthActions.ClearError());
+  }
+  ngOnDestroy(): void {
+    this.storeSub.unsubscribe();
   }
 }

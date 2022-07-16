@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './auth/auth.service';
-import { DataStorageService } from './shared/data-storage.service';
-
+import * as fromApp from './store/app.reducer';
+import * as AuthActions from './auth/store/auth.action';
+import * as RecipeActions from './recipes/store/recipe.actions';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,13 +10,16 @@ import { DataStorageService } from './shared/data-storage.service';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private authService: AuthService,
-    private dataStorageService: DataStorageService
+    // private authService: AuthService,
+    private store: Store<fromApp.AppState>
   ) {}
   ngOnInit(): void {
-    this.authService.autoLogin();
+    this.store.dispatch(new AuthActions.AutoLogin());
     if (localStorage.getItem('userData')) {
-      this.dataStorageService.fetchRecipe().subscribe();
+      setTimeout(
+        () => this.store.dispatch(new RecipeActions.FetchRecipes()),
+        500
+      );
     }
   }
   title = 'Recipe Book';

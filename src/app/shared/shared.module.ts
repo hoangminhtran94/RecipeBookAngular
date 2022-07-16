@@ -5,14 +5,13 @@ import { DropdownDirective } from './dropdown.directive';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
-  declarations: [AlertComponent, LoadingSpinnerComponent, DropdownDirective],
-  imports: [CommonModule],
-  exports: [
-    AlertComponent,
-    LoadingSpinnerComponent,
-    DropdownDirective,
-    CommonModule,
-  ],
-  entryComponents: [AlertComponent],
+    declarations: [AlertComponent, LoadingSpinnerComponent, DropdownDirective],
+    imports: [CommonModule],
+    exports: [
+        AlertComponent,
+        LoadingSpinnerComponent,
+        DropdownDirective,
+        CommonModule,
+    ]
 })
 export class SharedModule {}

@@ -12,7 +12,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li style="cursor:pointer" *ngIf="isAuthenticated">
-                    <a>User:{{userEmail}}</a>
+                    <a routerLink="/profile">User:{{userEmail}}</a>
                 </li>
                 <!-- <li class="dropdown" appDropdown *ngIf="isAuthenticated">
                     <a style="cursor:pointer" class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
