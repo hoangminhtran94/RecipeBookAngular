@@ -1,38 +1,71 @@
-
-<div class="row">
-    <div class="col-xs-6 col-md-6 col-md-offset-3">
-        <div *ngIf="isLoading" style="text-align:center">
-            <loading-spinner></loading-spinner>
-        </div>
-        <!-- <div class="alert alert-danger" *ngIf="error">
+<div class="flex flex-1 items-center flex-col">
+  <div *ngIf="isLoading" style="text-align: center">
+    <loading-spinner></loading-spinner>
+  </div>
+  <!-- <div class="alert alert-danger" *ngIf="error">
             <p>{{error}}</p>
         </div> -->
-        <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert>
-        <form [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
-             <div class="form-group">
-                 <label for="email" style="font-size:small">Email (hint: hihi@gmail.com)</label>
-                 <input type="email" id="email" class="form-control" formControlName="email"/>
-             </div>
-             <div class="form-group" *ngIf="!isLoginMode">
-                <label for="name" style="font-size:small">Name</label>
-                <input type="name" id="name" class="form-control"/>
-            </div>
-            <div class="form-group" *ngIf="!isLoginMode">
-                <label for="address" style="font-size:small">Address</label>
-                <input type="address" id="address" class="form-control" />
-            </div>
-            <div class="form-group" *ngIf="!isLoginMode">
-                <label for="font" style="font-size:small">Phone number</label>
-                <input type="font" id="address" class="form-control" />
-            </div>
-             <div class="form-group" >
-                 <label for="password" style="font-size:small">Password (hint: 123456)</label>
-                 <input type="password" id="password" class="form-control" formControlName="password"/>
-             </div>
-             <div>
-                 <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">{{isLoginMode ? 'Login':'Sign up'}}</button> |
-                 <button class="btn btn-primary" (click)="onSwitchMode()" type="button">Switch to {{isLoginMode? "Sign up":"Login"}}</button>
-             </div>
-        </form>
+  <app-alert
+    [message]="error"
+    *ngIf="error"
+    (close)="onHandleError()"
+  ></app-alert>
+  <form
+    [formGroup]="authForm"
+    class="w-1/2"
+    (ngSubmit)="onSubmit()"
+    *ngIf="!isLoading"
+  >
+    <div class="form-group">
+      <label for="email" style="font-size: small"
+        >Email (hint: hihi@gmail.com)</label
+      >
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        formControlName="email"
+      />
     </div>
+    <div class="form-group" *ngIf="!isLoginMode">
+      <label for="name" style="font-size: small">Name</label>
+      <input type="name" id="name" class="form-control" />
+    </div>
+    <div class="form-group" *ngIf="!isLoginMode">
+      <label for="address" style="font-size: small">Address</label>
+      <input type="address" id="address" class="form-control" />
+    </div>
+    <div class="form-group" *ngIf="!isLoginMode">
+      <label for="font" style="font-size: small">Phone number</label>
+      <input type="font" id="address" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="password" style="font-size: small"
+        >Password (hint: 123456)</label
+      >
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        formControlName="password"
+      />
+    </div>
+    <div>
+      <button
+        class="px-5 py-3 rounded-lg disabled:pointer-events-none disabled:bg-opacity-60 shadow-sm hover:text-white hover:bg-slate-500 bg-slate-700 text-white"
+        type="submit"
+        [disabled]="!authForm.valid"
+      >
+        {{ isLoginMode ? "Login" : "Sign up" }}
+      </button>
+      |
+      <button
+        class="px-5 py-3 rounded-lg shadow-sm hover:text-white hover:bg-slate-500 bg-slate-700 text-white"
+        (click)="onSwitchMode()"
+        type="button"
+      >
+        Switch to {{ isLoginMode ? "Sign up" : "Login" }}
+      </button>
+    </div>
+  </form>
 </div>

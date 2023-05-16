@@ -1,8 +1,14 @@
-<div class="row">
-    <div class="col-md-5">
-        <app-recipe-list ></app-recipe-list>
+<div class="flex flex-col flex-1 gap-2">
+  <div>
+    <button (click)="onNewRecipe()" class="btn btn-success">New Recipe</button>
+  </div>
+
+  <div class="flex flex-1">
+    <div class="flex-1">
+      <app-recipe-list></app-recipe-list>
     </div>
-    <div class="col-md-7">
-        <router-outlet ></router-outlet>
+    <div class="flex-1">
+      <router-outlet></router-outlet>
     </div>
+  </div>
 </div>

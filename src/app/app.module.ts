@@ -16,8 +16,14 @@ import { environment } from 'src/environments/environment';
 import { RecipeEffect } from './recipes/store/recipe.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './profile/profle.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, ProfileComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    ProfileComponent,
+    FooterComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

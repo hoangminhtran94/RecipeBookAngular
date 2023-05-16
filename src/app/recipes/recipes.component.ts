@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipes',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
   providers: [],
 })
 export class RecipesComponent implements OnInit {
+  router = inject(Router);
+  route = inject(ActivatedRoute);
   constructor() {}
 
   ngOnInit(): void {}
+  onNewRecipe() {
+    this.router.navigate(['new'], { relativeTo: this.route });
+  }
 }
