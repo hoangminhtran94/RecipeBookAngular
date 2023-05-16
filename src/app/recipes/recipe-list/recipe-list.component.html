@@ -1,7 +1,7 @@
-<div class="">
+<div class="flex flex-col gap-4">
   <app-recipe-item
     *ngFor="let recipeEl of recipes; let i = index"
-    (click)="onBack()"
+    [id]="recipeEl.id"
     [recipeItem]="recipeEl"
     [index]="i"
   ></app-recipe-item>

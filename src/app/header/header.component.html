@@ -4,7 +4,7 @@
   </div>
 
   <div class="flex gap-2 text-[20px]">
-    <ul class="flex gap-10">
+    <ul class="flex gap-[30px]">
       <li routerLinkActive="active" *ngIf="isAuthenticated">
         <a routerLink="/recipes">Recipes</a>
       </li>
@@ -14,8 +14,7 @@
       <li routerLinkActive="active" *ngIf="!isAuthenticated">
         <a routerLink="/user">Login</a>
       </li>
-    </ul>
-    <ul class="flex gap-2">
+
       <li class="cursor-pointer" *ngIf="isAuthenticated">
         <a routerLink="/profile">User:{{ userEmail }}</a>
       </li>

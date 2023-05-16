@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Recipe } from './../recipes.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -46,7 +46,7 @@ import {
     ]),
   ],
 })
-export class RecipeDetailComponent implements OnInit {
+export class RecipeDetailComponent implements OnInit, OnChanges {
   id: number;
   recipe: Recipe;
   constructor(
@@ -54,6 +54,9 @@ export class RecipeDetailComponent implements OnInit {
     private router: Router,
     private store: Store<fromApp.AppState>
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
 
   ngOnInit(): void {
     this.route.params

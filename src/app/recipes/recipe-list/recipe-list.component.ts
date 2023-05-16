@@ -16,11 +16,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   back: boolean = false;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private store: Store<fromApp.AppState>
-  ) {}
+  constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {
     this.subscription = this.store
@@ -33,9 +29,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       .subscribe((recipes: Recipe[]) => {
         this.recipes = recipes;
       });
-  }
-  onNewRecipe() {
-    this.router.navigate(['new'], { relativeTo: this.route });
   }
 
   ngOnDestroy(): void {
