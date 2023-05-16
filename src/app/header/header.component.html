@@ -4,21 +4,40 @@
   </div>
 
   <div class="flex gap-2 text-[20px]">
-    <ul class="flex gap-[30px]">
-      <li routerLinkActive="active" *ngIf="isAuthenticated">
-        <a routerLink="/recipes">Recipes</a>
+    <ul class="flex gap-[30px] items-center">
+      <li
+        class="hover:scale-110 transition-all"
+        routerLinkActive=" p-3 rounded-lg bg-red-300"
+        *ngIf="isAuthenticated"
+      >
+        <a class="hover:scale-110" routerLink="/recipes">Recipes</a>
       </li>
-      <li routerLinkActive="active">
+      <li
+        class="hover:scale-110 transition-all"
+        routerLinkActive=" p-3 rounded-lg bg-red-300"
+      >
         <a routerLink="/shopping-list">Shopping List</a>
       </li>
-      <li routerLinkActive="active" *ngIf="!isAuthenticated">
+      <li
+        class="hover:scale-110 transition-all"
+        routerLinkActive=" p-3 rounded-lg bg-red-300"
+        *ngIf="!isAuthenticated"
+      >
         <a routerLink="/user">Login</a>
       </li>
 
-      <li class="cursor-pointer" *ngIf="isAuthenticated">
+      <li
+        class="hover:scale-110 transition-all"
+        routerLinkActive=" p-3 rounded-lg bg-red-300"
+        *ngIf="isAuthenticated"
+      >
         <a routerLink="/profile">User:{{ userEmail }}</a>
       </li>
-      <li class="cursor-pointer" *ngIf="isAuthenticated">
+      <li
+        class="hover:scale-110 transition-all"
+        routerLinkActive=" p-3 rounded-lg bg-red-300"
+        *ngIf="isAuthenticated"
+      >
         <a (click)="onLogout()">Logout</a>
       </li>
     </ul>

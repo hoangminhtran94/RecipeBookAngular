@@ -30,3 +30,15 @@ a {
     opacity: 0;
   }
 }
+
+h1 {
+  color: #313070;
+}
+
+a:hover {
+  color: white !important;
+}
+
+a:focus {
+  color: white !important;
+}
